@@ -8,7 +8,7 @@
 
   <modules>
     <module>sv-common</module>
-    <!-- <module>sv-etl-storm-morphlines</module> -->
+    <module>sv-etl-storm-morphlines</module>
   </modules>
 
   <properties>

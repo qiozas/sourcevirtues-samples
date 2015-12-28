@@ -7,4 +7,7 @@ Most of these projects/modules are random thoughts and proof-of-concepts that I 
 
 Please feel free to collaborate, share, ask for help or report issues.
 
-All module names will start with ***sv-*** prefix, which is just a helper prefix to avoid any naming collisions in my/your workspace with other projects.
+All module names will start with **"sv-"** prefix, which is just a helper prefix to avoid any naming collisions in my/your workspace with other projects.
+
+### Projects
+- **sv-etl-storm-morphlines** module: [Custom Storm Bolt that handles Kite SDK Morphlines execution](sv-etl-storm-morphlines)

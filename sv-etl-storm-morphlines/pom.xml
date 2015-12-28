@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sourcevirtues.samples</groupId>
+    <artifactId>sourcevirtues-samples</artifactId>
+    <version>0.1</version>
+  </parent>
+  <artifactId>sv-etl-storm-morphlines</artifactId>
+
+  <properties>
+    <kite.version>1.1.0</kite.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.sourcevirtues.samples</groupId>
+      <artifactId>sv-common-basic</artifactId>
+      <version>0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sourcevirtues.samples</groupId>
+      <artifactId>sv-common-storm</artifactId>
+      <version>0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.storm</groupId>
+      <artifactId>storm-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kitesdk</groupId>
+      <artifactId>kite-morphlines-core</artifactId>
+      <version>${kite.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kitesdk</groupId>
+      <artifactId>kite-morphlines-json</artifactId>
+      <version>${kite.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- TODO remove this -->
+    <dependency>
+      <groupId>org.kitesdk</groupId>
+      <artifactId>kite-morphlines-avro</artifactId>
+      <version>${kite.version}</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
