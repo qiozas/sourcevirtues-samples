@@ -6,6 +6,11 @@
   <packaging>pom</packaging>
   <name>sourcevirtues-samples</name>
 
+  <modules>
+    <module>sv-common</module>
+    <!-- <module>sv-etl-storm-morphlines</module> -->
+  </modules>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <compiler.version>1.7</compiler.version>
