@@ -29,7 +29,7 @@ public class DummyJson2StringTopology {
 
         MorphlinesBolt morphBolt = new MorphlinesBolt()
                 .withTupleMapper(tuppleMapper)
-                .withMorphlineId("json2log")
+                .withMorphlineId("json2string")
                 .withMorphlineConfFile("target/test-classes/morphline_confs/json2string.conf")
                 //.withOutputProcessors(Arrays.asList(resultRecordHandlers));
                 .withOutputFields(CmnStormCons.TUPLE_FIELD_MSG)

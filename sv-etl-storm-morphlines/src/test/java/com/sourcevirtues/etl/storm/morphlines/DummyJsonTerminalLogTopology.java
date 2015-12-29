@@ -22,7 +22,7 @@ public class DummyJsonTerminalLogTopology {
 
         MorphlinesBolt morphBolt = new MorphlinesBolt()
                 .withTupleMapper(tuppleMapper)
-                .withMorphlineId("json2log")
+                .withMorphlineId("json_terminal_log")
                 .withMorphlineConfFile("target/test-classes/morphline_confs/json_terminal_log.conf");
 
         TopologyBuilder builder = new TopologyBuilder();
