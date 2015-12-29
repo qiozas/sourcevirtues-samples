@@ -87,6 +87,7 @@ public class MorphlinesBolt extends BaseRichBolt {
             record.put(org.kitesdk.morphline.base.Fields.ATTACHMENT_BODY, tupleMapper.map(tuple));
 
             Notifications.notifyStartSession(morphline);
+            boolean exceptionRaised = false;
             try {
                 boolean processed = morphline.process(record);
                 if (!processed) {
@@ -96,12 +97,17 @@ public class MorphlinesBolt extends BaseRichBolt {
                     return;
                 }
             } catch (RuntimeException rt) {
+                exceptionRaised = true;
                 morphlineContext.getExceptionHandler().handleException(rt, record);
             }
 
             if (terminalBolt) {
                 collector.ack(tuple);
                 return;
+            }
+
+            if (exceptionRaised) {
+                //Decide if you need extra handling apart from FaultTolerance handler provided by Morphline
             }
 
             List<Record> morphlineResults = finalChild.getRecords();

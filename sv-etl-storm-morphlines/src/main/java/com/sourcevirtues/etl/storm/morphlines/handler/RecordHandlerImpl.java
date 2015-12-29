@@ -52,19 +52,21 @@ public class RecordHandlerImpl<T, E> implements IRecordHandler<T, E> {
 
             Object firstValue = entry.getValue().iterator().next();
             if (Fields.ATTACHMENT_BODY.equals(entry.getKey())) {
+                LOG.trace("Found: key={} , value={}", entry.getKey(), entry.getValue());
                 if (firstValue == null) {
-                    LOG.trace("VALUE is null. return null");
+                    LOG.trace("VALUE is null!! Just break and return null");
                     body = null;
                     break;
                 } else {
-                    LOG.trace("currentType={} , key={} , value={}", firstValue.getClass(), entry.getKey(), entry.getValue());
+                    LOG.trace("Value is not null. objectType={} ", firstValue.getClass());
                     //TODO Handle errors (classCastException, ...)
                     body = (T) valueMapper.map(firstValue);
                     break;
                 }
             } else {
                 //TODO Handle or ignore other values
-                LOG.trace("IGNORED: key={} , value={}", entry.getKey(), entry.getValue());
+                LOG.trace("IGNORED: First key is not the expected. Current: key={} , value={}", entry.getKey(),
+                        entry.getValue());
             }
         }
 

@@ -33,7 +33,7 @@ public class DummyJson2StringTopology {
                 .withMorphlineConfFile("target/test-classes/morphline_confs/json2string.conf")
                 //.withOutputProcessors(Arrays.asList(resultRecordHandlers));
                 .withOutputFields(CmnStormCons.TUPLE_FIELD_MSG)
-                .withRecordMapper(RecordHandlerFactory.createMyObject(String.class, new JsonNode2StringResultMapper()));
+                .withRecordMapper(RecordHandlerFactory.genDefaultRecordHandler(String.class, new JsonNode2StringResultMapper()));
 
         LoggingBolt printBolt = new LoggingBolt().withFields(CmnStormCons.TUPLE_FIELD_MSG);
 
