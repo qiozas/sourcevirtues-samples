@@ -182,7 +182,7 @@ public class MorphlinesBolt extends BaseRichBolt {
         LOG.trace("withMorphlineConfFile: {}", confPath);
 
         try {
-            morphlineConfFullString = FileUtils.readFile(confPath);
+            morphlineConfFullString = FileUtils.readFileUTF8(confPath);
             LOG.info("morphlineConfFullString: \n{}", morphlineConfFullString);
         } catch (IOException e) {
             throw new RuntimeException(e);

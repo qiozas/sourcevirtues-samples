@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FileUtils {
 
@@ -36,22 +40,17 @@ public class FileUtils {
     }
 
     /**
-     * Read a file and return its content as a single String.
+     * Read a file with given encoded and return its content as a single String.
      */
-    public static String readFile(String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
+    public static String readFileUTF8(String path) throws IOException {
+        return readFile(path, StandardCharsets.UTF_8);
+    }
 
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            return sb.toString();
-        } finally {
-            br.close();
-        }
+    /**
+     * Read a file with given encoded and return its content as a single String.
+     */
+    public static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
     }
 }
