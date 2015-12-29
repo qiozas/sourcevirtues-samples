@@ -39,7 +39,7 @@ public class DummyJsonTerminalLogTopology {
         } else if (args.length == 1) {
             StormSubmitter.submitTopology(args[0], config, builder.createTopology());
         } else {
-            System.out.println("Usage: DummyJson2StringTopology <topology_name>");
+            System.out.println("Usage: DummyJsonTerminalLogTopology <topology_name>");
         }
     }
 }

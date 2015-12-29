@@ -1,6 +1,7 @@
 package com.sourcevirtues.etl.storm.morphlines.bolt;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,12 +53,12 @@ public class MorphlinesBolt extends BaseRichBolt {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
+    public void prepare(Map stormConf, TopologyContext topologyContext, OutputCollector collector) {
         LOG.info("START prepare");
 
         this.collector = collector;
 
-        File confFile = loadFile();
+        File confFile = loadFile(topologyContext.getThisWorkerPort().toString());
 
         if (morphlineContext == null) {
             //TODO Make FaultTolerance configurable
@@ -179,9 +180,13 @@ public class MorphlinesBolt extends BaseRichBolt {
 
     public MorphlinesBolt withMorphlineConfFile(String confPath) {
         LOG.trace("withMorphlineConfFile: {}", confPath);
-        this.morphlineConfpath = confPath;
 
-        //TODO Store contents of conf file as String in memory in order to be available in Workers
+        try {
+            morphlineConfFullString = FileUtils.readFile(confPath);
+            LOG.info("morphlineConfFullString: \n{}", morphlineConfFullString);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return this;
     }
@@ -234,18 +239,21 @@ public class MorphlinesBolt extends BaseRichBolt {
         return this;
     }
 
-    private File loadFile() {
-        //TODO Load file as string
+    private File loadFile(String tmpId) {
         //TODO Load file from URL
 
         File confFile = null;
         if (!EmptyUtils.nullOrEmpty(morphlineConfFullString)) {
-            confFile = FileUtils.createTempFileWithContent(morphlineConfFullString);
+            confFile = FileUtils.createTempFileWithContent(morphlineConfFullString, "morphlines_"
+                    + tmpId + "_" + System.currentTimeMillis() + "_", ".conf");
         } else {
+            LOG.warn("variable morphlineConfFullString is empty. Try to load directly from local file: {}", morphlineConfpath);
             confFile = new File(morphlineConfpath);
         }
 
-        LOG.trace("loadFile(): {}", confFile);
+        this.morphlineConfpath = confFile.getAbsolutePath();
+        LOG.info("Morphline conf file: {}", morphlineConfpath);
+
         return confFile;
     }
 }
